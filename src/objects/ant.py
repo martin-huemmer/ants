@@ -2,31 +2,7 @@ __author__ = 'martinhummer'
 
 
 import random
-from utils import directions
-import numpy as np
-
-
-# PheromoneMap Class
-# creation of pheromone map and handeling decay
-# over time
-# map is updated by ants
-class PheromoneMap:
-
-    def __init__(self, size):
-        self.size = size
-        self.map = []
-        self.createMap()
-
-    def createMap(self):
-        self.map = np.zeros((self.size[0], self.size[1]))
-
-    # decay every timestep every location with -0.1
-    def decayMap(self):
-        self.map = self.map - 0.01
-        # set values < 0 to 0
-        self.map = self.map.clip(min=0)
-        # allow only max values of 1
-        self.map = self.map.clip(max=1)
+from src.utils import directions
 
 class Ant:
 
@@ -98,34 +74,3 @@ class Ant:
     def excretePheromones(self):
         self.pheromoneMap.map[self.pos[0]][self.pos[1]] = self.pheromoneMap.map[self.pos[0]][self.pos[1]] + 1
 
-
-class Hive(Ant, PheromoneMap):
-
-    def __init__(self, home, size, area):
-        print home
-        self.hiveHomeX = home[0]
-        self.hiveHomeY = home[1]
-        self.size = size
-        self.areaSize = area
-        self.ants = []
-        self.memberPositions = []
-        # create pheromoneMap
-        self.pheromoneMap = PheromoneMap(self.areaSize)
-        self.createHive()
-
-
-    def createHive(self):
-        for el in range(self.size):
-            ant = Ant('Ant'+str(el),[self.hiveHomeX, self.hiveHomeY],self.pheromoneMap)
-            self.ants.append(ant)
-
-    def hiveRoam(self):
-        self.memberPositions = []
-        for ant in self.ants:
-            self.memberPositions.append(ant.roam())
-
-
-    def updateHive(self):
-        self.hiveRoam()
-        self.pheromoneMap.decayMap()
-        return self.memberPositions, self.pheromoneMap.map

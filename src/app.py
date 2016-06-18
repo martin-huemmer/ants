@@ -7,17 +7,14 @@ a static button with the words 'hello world' rotated at a 45 degree angle.
 '''
 
 from kivy.app import App
-from kivy.properties import OptionProperty, NumericProperty, ListProperty, \
-        BooleanProperty, ObjectProperty
-from kivy.uix.floatlayout import FloatLayout
-from kivy.core.window import Window
-from kivy.lang import Builder
 from kivy.clock import Clock
-from math import cos, sin
-from Ant import Hive
+from kivy.core.window import Window
 from kivy.graphics import Color, Rectangle
-import time, random
+from kivy.properties import NumericProperty, BooleanProperty, ObjectProperty
+from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.widget import Widget
+
+from src.objects.hive import Hive
 
 
 class AntHive(Widget):

@@ -1,8 +1,13 @@
-__author__ = 'martinhummer'
-
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
 
 import random
 from src.utils import directions
+
+
+# Basic ant class. Initializes Ant with a home position and a pheromoneMap which is updated every time the ant moves.
+# The ant has a roam function, that is executed for each step it is walking. There is a 10% Chance to change the
+# direction for each step.
 
 class Ant:
 

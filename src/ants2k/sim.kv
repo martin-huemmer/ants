@@ -1,6 +1,21 @@
-<Ant>:
-    size: 100, 100
+#:kivy 1.0.9
+
+<AntPixel>:
+    size: 1, 1
     canvas:
         Rectangle:
             pos: self.pos
-            size: 1,1
+            size: self.size          
+
+<HiveCanvas>:
+    ant: ant_pixel
+
+    Label:
+        font_size: 20
+        center_x: root.width / 10
+        top: root.top - 20
+        text: "0"
+
+    AntPixel:
+        id: ant_pixel
+        center: self.parent.center

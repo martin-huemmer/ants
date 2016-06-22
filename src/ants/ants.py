@@ -18,6 +18,9 @@ class WorldRenderer(Widget):
     def update(self, *args):
         self.world.update_graphics()
 
+    def update_map(self):
+        self.world.draw_movement()
+
 
 class Ants(App):
     def build(self):
@@ -25,6 +28,7 @@ class Ants(App):
         Clock.schedule_interval(world.tick, CONFIG['world']['tick_interval'])
         renderer = WorldRenderer(world)
         Clock.schedule_interval(renderer.update, CONFIG['renderer']['update_interval'])
+        Clock.schedule_interval(renderer.update_map(), 5)
         return renderer
 
 

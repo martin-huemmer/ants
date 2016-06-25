@@ -11,15 +11,16 @@ CONFIG = {
         'rect_size_pixel': Size(2, 2)
     },
     'hive': {
-        'ants': 1
+        'ants': 50
     },
     'world': {
-        'size': Size(10, 10),
-        'hives': 1,
+        'size': Size(1000, 1000),
+        'hives': 3,
         'hive_colors': [(1, 0, 0, 1), (0, 1, 0, 1), (0, 0, 1, 1)],
-        'tick_interval': 1
+        'tick_interval': 0.01
     },
     'renderer': {
-        'update_interval': 1
+        'update_interval': 0.1,
+        'update_map_interval': 1
     }
 }

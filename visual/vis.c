@@ -7,7 +7,7 @@
 #include <string.h>
 #include <SDL2/SDL.h>
 
-
+//gcc -lrt -lSDL2 vis.c
 
 int main() {
 	const char *name = "antsfoo";

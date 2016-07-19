@@ -2,10 +2,10 @@
 
 from common.geometry import Size
 from entities.world import World
+from common.smem import SMem
 
-import posix_ipc as ipc
-import mmap
 from time import sleep
+import posix_ipc as ipc
 
 CONFIG = {
     'ant': {
@@ -28,31 +28,15 @@ CONFIG = {
     }
 }
 
-
-def analyze(world, smem):
-    smem.seek(0)
-    smem.write(("%03d%03d"%(world.hives[0].ants[0].position.get())).encode())
-    for ant in world.hives[0].ants:
-        print(ant.position)
-
-
 def main():
-    ipcsmem  = ipc.SharedMemory(CONFIG['ipc']['name'], CONFIG['ipc']['flags'], size=CONFIG['ipc']['size'])
-    smem = mmap.mmap(ipcsmem.fd, ipcsmem.size)
-    ipcsmem.close_fd()
-
+    smem = SMem(CONFIG)
+    smem.init_smem()
     world = World(CONFIG)
-
-    try:
-        while True:
-            world.tick()
-            analyze(world, smem)
-            if CONFIG['world']['tick_pause_s'] > 0:
-                sleep(CONFIG['world']['tick_pause_s'])
-    except KeyboardInterrupt:
-        pass
-    finally:
-        smem.close()
+    while True:
+        world.tick()
+        smem.write_smem(world)
+        if CONFIG['world']['tick_pause_s'] > 0:
+            sleep(CONFIG['world']['tick_pause_s'])
 
 if __name__ == '__main__':
     main()
